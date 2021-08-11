@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_11_115143) do
+ActiveRecord::Schema.define(version: 2021_08_11_131643) do
 
   create_table "actors", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "first_name"
@@ -21,13 +21,11 @@ ActiveRecord::Schema.define(version: 2021_08_11_115143) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "actors_movies", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.bigint "movie_id"
-    t.bigint "actor_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["actor_id"], name: "index_actors_movies_on_actor_id"
-    t.index ["movie_id"], name: "index_actors_movies_on_movie_id"
+  create_table "actors_movies", id: false, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "actor_id", null: false
+    t.bigint "movie_id", null: false
+    t.index ["actor_id", "movie_id"], name: "index_actors_movies_on_actor_id_and_movie_id"
+    t.index ["movie_id", "actor_id"], name: "index_actors_movies_on_movie_id_and_actor_id"
   end
 
   create_table "genres", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -36,13 +34,11 @@ ActiveRecord::Schema.define(version: 2021_08_11_115143) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "genres_movies", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.bigint "movie_id"
-    t.bigint "genre_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["genre_id"], name: "index_genres_movies_on_genre_id"
-    t.index ["movie_id"], name: "index_genres_movies_on_movie_id"
+  create_table "genres_movies", id: false, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "genre_id", null: false
+    t.bigint "movie_id", null: false
+    t.index ["genre_id", "movie_id"], name: "index_genres_movies_on_genre_id_and_movie_id"
+    t.index ["movie_id", "genre_id"], name: "index_genres_movies_on_movie_id_and_genre_id"
   end
 
   create_table "movies", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
