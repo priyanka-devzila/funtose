@@ -8,4 +8,15 @@ class Movie < ApplicationRecord
     has_and_belongs_to_many :genres
 
     accepts_nested_attributes_for :actors, :genres
+
+    # ====================== Scopes ====================================== #
+
+    scope :search, ->(keyword){
+        where("name LIKE :search OR title LIKE :search", { search: "%#{keyword.downcase}%"})
+      }
+
+
+
+    # ====================== Instance Methods ========================== #
+
 end

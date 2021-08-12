@@ -6,6 +6,7 @@ class V1::MoviesController < ApplicationController
     def index
         @movies = Movie.all
         @movies = apply_pagination @movies
+        @movies = @movies.search(params[:search]) if params[:search].present?
 
         render_success(data: {
             movies: @movies.as_api_response(:base),
