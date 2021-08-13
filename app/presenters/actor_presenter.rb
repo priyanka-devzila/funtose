@@ -9,6 +9,7 @@ module ActorPresenter
         t.add :last_name
         t.add :nationality
         t.add :date_of_birth
+        t.add :movies
         t.add :created_at
         t.add :updated_at
       end

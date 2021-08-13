@@ -6,8 +6,8 @@ module MoviePresenter
   
       api_accessible :base do |t|
         t.add :id
-        t.add :name
         t.add :title
+        t.add :director
         t.add :release_date
         t.add :movie_length
         t.add :language
@@ -15,9 +15,16 @@ module MoviePresenter
         t.add :rating
         t.add :overview
         t.add :tagline
+        t.add :genres
+        t.add :actors
         t.add :created_at
         t.add :updated_at
       end
+
+      api_accessible :index, extend: :base do |t|
+
+      end
+
     
     end
   

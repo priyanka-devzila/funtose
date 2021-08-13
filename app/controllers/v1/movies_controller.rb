@@ -5,8 +5,9 @@ class V1::MoviesController < ApplicationController
 
     def index
         @movies = Movie.all
-        @movies = apply_pagination @movies
         @movies = @movies.search(params[:search]) if params[:search].present?
+        @movies = apply_pagination @movies
+        
 
         render_success(data: {
             movies: @movies.as_api_response(:base),
@@ -62,7 +63,7 @@ class V1::MoviesController < ApplicationController
     private 
 
     def movies_params
-        params.require(:movies).permit(:name, :title, :release_date, :movie_length, :language,
+        params.require(:movies).permit(:title, :director, :release_date, :movie_length, :language,
         :movie_release_country, :rating, :overview, :tagline)
     end
 
