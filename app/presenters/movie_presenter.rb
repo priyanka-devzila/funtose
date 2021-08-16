@@ -18,6 +18,9 @@ module MoviePresenter
       end
 
       api_accessible :show, extend: :base do |t|
+
+        t.add :actors, template: :base
+        t.add :genres, template: :base
         
 
       end

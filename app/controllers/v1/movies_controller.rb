@@ -17,7 +17,7 @@ class V1::MoviesController < ApplicationController
 
     def show
         if render_success(data: {
-                movies: @movies.as_api_response(:base)
+                movies: @movies.as_api_response(:show)
             })
         else
             render_error message: "Data Not Found", data: {error: @movies.errors}

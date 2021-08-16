@@ -13,7 +13,7 @@ module ActorPresenter
       end
 
       api_accessible :show, extend: :base do |t|
-        t.add :movies
+        t.add :movies, template: :base
 
       end
     end
