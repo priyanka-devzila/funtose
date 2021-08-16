@@ -6,7 +6,12 @@ module GenrePresenter
   
       api_accessible :base do |t|
         t.add :name
+        t.add :description
+      end
+
+      api_accessible :show, extend: :base do |t|
         t.add :movies
+
       end
     end
   

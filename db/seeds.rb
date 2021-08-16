@@ -8,15 +8,18 @@
 
 
     50.times do |index|
-        Movie.create!(title: Faker::Lorem.sentence(word_count: 3, supplemental: false, random_words_to_add: 0).chop,
-                    director: Faker::Name.name
+        Movie.create!(
+            title: Faker::Movie.title,
+            release_date: Faker::Date.birthday(min_age: 0, max_age: 65)
                     )
     end
 
 
     50.times do |index|
         Actor.create!(
-                    first_name: Faker::Name.name,
+            name: Faker::Name.name,
+            gender: ["male", "female"].sample,
+            date_of_birth: Faker::Date.birthday(min_age: 18, max_age: 65)
                     
                     )
     end
@@ -24,7 +27,8 @@
 
     50.times do |index|
         Genre.create!(
-                      name: Faker::Name.name
-                      )
+            name:  Faker::Music.genre
+
+                    )
     end
 

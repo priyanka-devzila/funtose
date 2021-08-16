@@ -27,13 +27,16 @@ class V1::MoviesController < ApplicationController
 
 
     def create
-        @movies = Movie.create(movies_params)
+        #render json: movies_params
+        @movies = Movie.create(movies_params.except(:actor_ids, :genre_ids))
         if @movies.save
-        render_success message: "movies has been created", data: {
+            @movies.actors << Actor.where(id: params.require(:movie)[:actor_ids])
+            @movies.genres << Genre.where(id: params.require(:movie)[:genre_ids]) 
+            render_success message: "movies has been created", data: {
             movies: @movies
-        }
+            }
         else
-        render_error message: "Not Created" , data: {error: @movies.errors}
+            render_error message: "Not Created" , data: {error: @movies.errors}
         end
     end
 
@@ -63,8 +66,14 @@ class V1::MoviesController < ApplicationController
     private 
 
     def movies_params
-        params.require(:movies).permit(:title, :director, :release_date, :movie_length, :language,
-        :movie_release_country, :rating, :overview, :tagline)
+        params.require(:movie).permit(:title, 
+        :release_date, 
+        :movie_length_in_minutes, 
+        :rating, 
+        :overview,
+        :actor_ids => [],
+        :genre_ids => []
+        )
     end
 
 

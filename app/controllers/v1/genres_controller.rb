@@ -15,7 +15,7 @@ class V1::GenresController < ApplicationController
 
     def show
         if render_success(data: {
-                genre: @genre.as_api_response(:base)
+                genre: @genre.as_api_response(:show)
             })
         else
             render_error message: "Data Not Found", data: {error: @genre.errors}
@@ -25,9 +25,10 @@ class V1::GenresController < ApplicationController
 
 
     def create
-        @genre = Genre.create(genre_params)
+        @genre = Genre.create(genre_params.except(:movie_ids))
         if @genre.save
-        render_success message: "Genre has been created", data: {
+            @genre.movies << Movie.where(id: params.require(:genre)[:movie_ids]) 
+            render_success message: "Genre has been created", data: {
             genre: @genre
         }
         else
@@ -61,7 +62,10 @@ class V1::GenresController < ApplicationController
     private 
 
     def genre_params
-        params.require(:genre).permit(:name)
+        params.require(:genre).permit(:name,
+        :description,
+        :movie_ids => []
+        )
     end
 
 

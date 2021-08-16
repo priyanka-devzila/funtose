@@ -13,9 +13,8 @@
 ActiveRecord::Schema.define(version: 2021_08_11_131643) do
 
   create_table "actors", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "first_name"
-    t.string "last_name"
-    t.string "nationality"
+    t.string "name", null: false
+    t.string "gender", null: false
     t.date "date_of_birth"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -29,7 +28,8 @@ ActiveRecord::Schema.define(version: 2021_08_11_131643) do
   end
 
   create_table "genres", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
+    t.text "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -43,14 +43,10 @@ ActiveRecord::Schema.define(version: 2021_08_11_131643) do
 
   create_table "movies", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "title", null: false
-    t.string "director"
     t.date "release_date"
-    t.float "movie_length"
-    t.string "language"
-    t.string "movie_release_country"
+    t.integer "movie_length_in_minutes"
     t.float "rating"
     t.string "overview"
-    t.string "tagline"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

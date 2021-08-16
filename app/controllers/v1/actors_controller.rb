@@ -15,7 +15,7 @@ class V1::ActorsController < ApplicationController
 
     def show
         if render_success(data: {
-                actors: @actors.as_api_response(:base)
+                actors: @actors.as_api_response(:show)
             })
         else
             render_error message: "Data Not Found", data: {error: @actors.errors}
@@ -25,9 +25,10 @@ class V1::ActorsController < ApplicationController
 
 
     def create
-        @actors = Actor.create(actors_params)
+        @actors = Actor.create(actors_params.except(:movie_ids))
         if @actors.save
-        render_success message: "actor has been created", data: {
+            @actors.movies << Movie.where(id: params.require(:actor)[:movie_ids])
+            render_success message: "actor has been created", data: {
             actors: @actors
         }
         else
@@ -61,7 +62,11 @@ class V1::ActorsController < ApplicationController
     private 
 
     def actors_params
-        params.require(:actors).permit(:first_name, :last_name, :nationality, :date_of_birth)
+        params.require(:actor).permit(:name,
+        :gender, 
+        :date_of_birth,
+        :movie_ids => []
+        )
     end
 
 
