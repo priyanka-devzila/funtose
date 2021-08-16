@@ -11,8 +11,6 @@ module MoviePresenter
         t.add :movie_length_in_minutes
         t.add :rating
         t.add :overview
-        t.add :actors
-        t.add :genres
         t.add :created_at
         t.add :updated_at
       end
