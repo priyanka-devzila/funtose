@@ -4,12 +4,13 @@ class V1::GenresController < ApplicationController
 
 
     def index
-        @genre = Genre.all
-        @genre = apply_pagination @genre
+        @genres = Genre.all
+        @genres = @genres.search(params[:search]) if params[:search].present?
+        @genres = apply_pagination @genres
 
         render_success(data: {
-            genre: @genre.as_api_response(:base),
-            pagination: pagination(@genre)
+            genre: @genres.as_api_response(:base),
+            pagination: pagination(@genres)
         })
     end
 

@@ -5,6 +5,7 @@ module ActorPresenter
       acts_as_api
   
       api_accessible :base do |t|
+        t.add :id
         t.add :name
         t.add :gender
         t.add :date_of_birth

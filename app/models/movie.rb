@@ -12,7 +12,7 @@ class Movie < ApplicationRecord
     # ====================== Scopes ====================================== #
 
     scope :search, ->(keyword){
-        where("name LIKE :search OR title LIKE :search", { search: "%#{keyword.downcase}%"})
+        where("movies.title LIKE :search ", { search: "%#{keyword.downcase}%"})
       }
 
 
