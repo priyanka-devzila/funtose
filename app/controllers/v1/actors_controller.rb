@@ -74,4 +74,6 @@ class V1::ActorsController < ApplicationController
         @actors = Actor.find(params[:id])
     end  
 
+    def something
+    end
 end 
